@@ -1,0 +1,36 @@
+@import url("https://use.typekit.net/lwi8veq.css");
+:root {
+  --red: #ee4054;
+  --text-muted: rgb(174, 180, 190);
+  --white: #fff;
+}
+
+a {
+  text-decoration: none;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "noto-sans", sans-serif;
+  background-color: #ecf0f1;
+  color: #2b3445;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "noto-sans", sans-serif;
+  margin-bottom: 0;
+}
+
+p {
+  font-family: "noto-sans", sans-serif;
+}
