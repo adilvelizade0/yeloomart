@@ -11,12 +11,16 @@ const CategoriesWrapper = styled.div`
       cursor: pointer;
       .category__img {
         width: 40px;
+        height: 40px;
+        min-width: 40px;
+        min-height: 40px;
         display: flex;
         align-items: center;
         justify-content: center;
         border-radius: 50%;
         object-fit: contain;
         overflow: hidden;
+        background-color: #fff;
       }
     }
 

@@ -14,16 +14,16 @@ const TopicSection = ({ title, path }) => {
       >
         {title}
       </h5>
-      <a
+      <Link
         style={{
           fontSize: "14px",
         }}
         className="d-flex align-items-center"
-        href={path}
+        to={path}
       >
         <span className="me-1 fw-bold">Hamısına Baxın</span>
         <IoIosArrowForward size={16} />
-      </a>
+      </Link>
     </div>
   );
 };

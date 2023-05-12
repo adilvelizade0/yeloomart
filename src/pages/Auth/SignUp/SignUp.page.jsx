@@ -9,11 +9,16 @@ import parsePhoneNumber, {
   isPossiblePhoneNumber,
   isValidPhoneNumber,
 } from "libphonenumber-js";
-import classNames from "classnames";
+import { useMutation } from "@tanstack/react-query";
+import { publicAxios } from "../../../utils/axios.helpers.js";
+import axios, { AxiosError } from "axios";
+import { Oval } from "react-loader-spinner";
 
 const SignUp = () => {
   const isAuthenticated = useIsAuthenticated();
   const navigate = useNavigate();
+
+  // region *State
   const [phone, setPhone] = useState("");
   const [phoneError, setPhoneError] = useState(null);
   const [email, setEmail] = useState("");
@@ -22,12 +27,45 @@ const SignUp = () => {
   const [nameError, setNameError] = useState(null);
   const [surname, setSurname] = useState("");
   const [surnameError, setSurnameError] = useState(null);
+  const [registerError, setRegisterError] = useState(null);
+  // endregion
+
+  const signup = async () => {
+    try {
+      return await axios.post(
+        `${import.meta.env.VITE_BASE_URL}/auth/registration/`,
+        {
+          username: name + " " + surname,
+          phone: phone.split(" ").join(""), // remove spaces
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        if (error.response?.status === 400) {
+          throw new Error("Bu nömrə artıq qeydiyyatdan keçib");
+        }
+      }
+    }
+  };
+  const { mutate, isLoading, isError, error } = useMutation(signup, {
+    onSuccess: (data) => {
+      navigate("/sign-in");
+    },
+    onError: (error) => {
+      setRegisterError(error.message);
+    },
+  });
 
   useEffect(() => {
     if (isAuthenticated()) {
       navigate("/profile");
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated()]);
   const phoneFormatter = (value) => {
     const phoneNumber = parsePhoneNumber(value, "AZ", {
       extended: true,
@@ -39,21 +77,17 @@ const SignUp = () => {
 
     return phoneNumber.formatInternational();
   };
-
   const validatePhone = (value) => {
     return (
       isPossiblePhoneNumber(value, "AZ") && isValidPhoneNumber(value, "AZ")
     );
   };
-
   const handlePhoneChange = (e) => {
     const value = e.target.value;
     const formattedValue = phoneFormatter(value);
     setPhone(formattedValue);
     setPhoneError(null);
-    setOtpError(null);
   };
-
   const onSubmit = (e) => {
     e.preventDefault();
     const phoneIsValid = validatePhone(phone);
@@ -64,10 +98,6 @@ const SignUp = () => {
 
     if (!phone) {
       setPhoneError("Telefon nömrəsi boş ola bilməz");
-    }
-
-    if (phoneIsValid && phone) {
-      alert("Giriş uğurla başa çatdı");
     }
 
     if (!name) {
@@ -91,7 +121,7 @@ const SignUp = () => {
     }
 
     if (emailIsValid && email && name && surname && phoneIsValid && phone) {
-      alert("Qeydiyyat uğurla başa çatdı");
+      mutate();
     }
   };
 
@@ -183,9 +213,29 @@ const SignUp = () => {
                   />
                   {emailError && <span className="error">{emailError}</span>}
                 </div>
+                {registerError && (
+                  <div className="alert alert-danger">{registerError}</div>
+                )}
                 <div className="form-group mt-4">
-                  <button type="submit" className="btn btn-primary">
-                    Qeydiyyatdan keç
+                  <button
+                    disabled={isLoading}
+                    type="submit"
+                    className="btn btn-primary d-flex justify-content-center align-items-center"
+                  >
+                    {isLoading ? (
+                      <Oval
+                        height={25}
+                        width={25}
+                        color="#ee4054"
+                        visible={true}
+                        ariaLabel="oval-loading"
+                        secondaryColor="#ee4054"
+                        strokeWidth={4}
+                        strokeWidthSecondary={4}
+                      />
+                    ) : (
+                      "Qeydiyyatdan keç"
+                    )}
                   </button>
                 </div>
                 <span

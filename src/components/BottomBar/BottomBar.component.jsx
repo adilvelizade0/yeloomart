@@ -75,11 +75,7 @@ const BottomBar = () => {
       icon: (
         <CgProfile
           onClick={() => {
-            if (isAuthenticated()) {
-              navigate("/profile");
-            } else {
-              navigate("/sign-in");
-            }
+            navigate("/profile");
           }}
           color="rgb(102, 102, 102)"
           size={25}

@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import CategorySectionWrapper from "./CategorySection.styles.js";
 import TopicSection from "../TopicSection/TopicSection.component.jsx";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
-import { BsArrowLeftShort, BsArrowRightShort } from "react-icons/bs";
+import { useSelector } from "react-redux";
 
 const CategorySection = () => {
+  const { data } = useSelector((state) => state.categories);
+
   const settings = {
     infinite: false,
     speed: 500,
@@ -18,27 +20,34 @@ const CategorySection = () => {
     arrows: false,
     dots: false,
   };
+
   return (
     <CategorySectionWrapper className="d-lg-none">
       <div className="container">
-        <TopicSection path={"#"} title={"Kategoriyalar"} />
+        <TopicSection path={"/categories"} title={"Kategoriyalar"} />
         <Slider {...settings}>
-          {[...Array(14)].map((item, index) => (
+          {data.map((category, index) => (
             <div key={index} className="p-2 text-center">
               <div
                 style={{
-                  objectFit: "cover",
+                  objectFit: "contain",
                   overflow: "hidden",
                   borderWidth: "2px",
                   backgroundColor: "#f5f5f5",
                   borderColor: "#f5f5f5",
+                  maxHeight: "100px",
+                  maxWidth: "100px",
+                  height: "80px",
                 }}
-                className="card p-1"
+                className="card p-1 d-flex align-items-center justify-content-center"
               >
                 <img
-                  src="https://lzd-img-global.slatic.net/g/icms/images/ims-web/28cb9617-e53d-4995-bc66-72adca1d882f.jpg_150x150q80.jpg_.webp"
+                  style={{
+                    objectFit: "contain",
+                  }}
+                  src={category.cover_image}
                   className="img-fluid"
-                  alt="..."
+                  alt="category-cover"
                 />
               </div>
               <span
@@ -47,7 +56,11 @@ const CategorySection = () => {
                 }}
                 className="d-inline-block text-truncate  mt-1"
               >
-                <span className="d-block">Fast Food</span>
+                <span className="d-block">
+                  {category.category_name.length > 10
+                    ? category.category_name.slice(0, 10) + "..."
+                    : category.category_name}
+                </span>
               </span>
             </div>
           ))}

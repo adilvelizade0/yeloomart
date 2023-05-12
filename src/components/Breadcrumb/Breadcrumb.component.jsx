@@ -6,13 +6,14 @@ const Breadcrumb = () => {
   const href = useHref();
 
   const check = (item) => {
-    console.log(item);
     if (item === "product") {
       return "Məhsul";
     } else if (item === "cart") {
       return "Səbət";
     } else if (item === "categories") {
       return "Kateqoriyalar";
+    } else if (item === "profile") {
+      return "Profil";
     } else {
       return v.capitalize(item);
     }

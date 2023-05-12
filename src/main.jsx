@@ -17,6 +17,10 @@ import Cart from "./pages/Cart/Cart.page.jsx";
 import SignIn from "./pages/Auth/SignIn/SigIn.page.jsx";
 import SignUp from "./pages/Auth/SignUp/SignUp.page.jsx";
 import { AuthProvider } from "react-auth-kit";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import Profile from "./pages/Profile/Profile.page.jsx";
+
+const queryClient = new QueryClient();
 
 const BrowserRouter = createBrowserRouter([
   {
@@ -56,10 +60,25 @@ const BrowserRouter = createBrowserRouter([
     errorElement: <ErrorBoundary />,
   },
   {
+    path: "/profile",
+    element: <Profile />,
+    errorElement: <ErrorBoundary />,
+  },
+  {
     path: "*",
     element: <NotFound />,
   },
 ]);
+
+const getCookie = (name) => {
+  const cookie = document.cookie
+    .split("; ")
+    .find((row) => row.startsWith(`${name}=`));
+  if (cookie) {
+    return cookie.split("=")[1];
+  }
+  return null;
+};
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <Provider store={store}>
@@ -68,8 +87,20 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       authName={"_auth"}
       cookieDomain={window.location.hostname}
       cookieSecure={window.location.protocol === "https:" || false}
+      refresh={{
+        endpoint: `${import.meta.env.VITE_BASE_URL}/toke/refresh/`,
+        method: "POST",
+        body: JSON.stringify({
+          refresh: getCookie("_auth_refresh"),
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }}
     >
-      <Router router={BrowserRouter} />
+      <QueryClientProvider client={queryClient}>
+        <Router router={BrowserRouter} />
+      </QueryClientProvider>
     </AuthProvider>
   </Provider>
 );

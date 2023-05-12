@@ -6,9 +6,13 @@ import { HiMapPin } from "react-icons/hi2";
 import { FaUser } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import { useAuthUser, useIsAuthenticated } from "react-auth-kit";
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const isAuthenticated = useIsAuthenticated();
+  const authUser = useAuthUser();
+
   const cart = useSelector((state) => state.cart);
   const cartCount = cart.cartItems.reduce((acc, item) => {
     return acc + item.count;
@@ -76,25 +80,36 @@ const Navbar = () => {
                     ŞƏXSİ KABİNET
                   </h6>
                   <div>
-                    <Link
-                      className="text-light text-decoration-underline fw-bold"
-                      style={{
-                        fontSize: "11px",
-                      }}
-                      to="/sign-up"
-                    >
-                      QEYDİYYAT
-                    </Link>
-                    <span className="mx-2 text-light">|</span>
-                    <Link
-                      className="text-light text-decoration-underline fw-bold"
-                      style={{
-                        fontSize: "11px",
-                      }}
-                      to="/sign-in"
-                    >
-                      GİRİŞ
-                    </Link>
+                    {isAuthenticated() ? (
+                      <Link
+                        to={"/profile"}
+                        className="text-light text-decoration-underline fw-bold"
+                      >
+                        {authUser()?.username}
+                      </Link>
+                    ) : (
+                      <>
+                        <Link
+                          className="text-light text-decoration-underline fw-bold"
+                          style={{
+                            fontSize: "11px",
+                          }}
+                          to="/sign-up"
+                        >
+                          QEYDİYYAT
+                        </Link>
+                        <span className="mx-2 text-light">|</span>
+                        <Link
+                          className="text-light text-decoration-underline fw-bold"
+                          style={{
+                            fontSize: "11px",
+                          }}
+                          to="/sign-in"
+                        >
+                          GİRİŞ
+                        </Link>
+                      </>
+                    )}
                   </div>
                 </div>
               </div>

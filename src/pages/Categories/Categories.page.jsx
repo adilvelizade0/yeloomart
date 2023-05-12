@@ -1,13 +1,28 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CategoriesWrapper from "./Categories.styles.js";
 import Breadcrumb from "../../components/Breadcrumb/Breadcrumb.component.jsx";
 import MobileNavigator from "../../components/MobileNavigator/MobileNavigator.component.jsx";
 import BottomBar from "../../components/BottomBar/BottomBar.component.jsx";
 import classNames from "classnames";
 import { IoIosArrowForward } from "react-icons/io";
+import { useDispatch, useSelector } from "react-redux";
+import { getCategories } from "../../actions/categories.actions.js";
+import Loader from "../../components/Loader/Loader.component.jsx";
 
 const Categories = () => {
   const [tab, setTab] = useState(0);
+  const { data, pending, error } = useSelector((state) => state.categories);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (!data.length) {
+      dispatch(getCategories());
+    }
+  }, []);
+
+  if (pending) {
+    return <Loader />;
+  }
 
   return (
     <CategoriesWrapper>
@@ -24,92 +39,40 @@ const Categories = () => {
           className="categories"
         >
           <ul className="list-unstyled">
-            <li
-              onClick={() => {
-                setTab(0);
-              }}
-              className={classNames(
-                {
-                  active: tab === 0,
-                },
-                "category  d-flex align-items-center justify-content-between"
-              )}
-            >
-              <div className="category__img shadow-sm me-3">
-                <img
-                  src="https://lzd-img-global.slatic.net/g/tps/images/ims-web/TB1z9pMpBr0gK0jSZFnXXbRRXXa.jpg_80x80q80.jpg_.webp"
-                  alt="category"
-                  width="100%"
-                />
-              </div>
-              <span
-                style={{
-                  fontSize: "12px",
-                  fontWeight: "500",
+            {data.map((category, index) => (
+              <li
+                key={index}
+                onClick={() => {
+                  setTab(index);
                 }}
-                className="text-muted"
+                className={classNames(
+                  {
+                    active: tab === index,
+                  },
+                  "category  d-flex align-items-center"
+                )}
               >
-                Meyvə və sebzələr
-              </span>
-            </li>
-            <li
-              onClick={() => {
-                setTab(1);
-              }}
-              className={classNames(
-                {
-                  active: tab === 1,
-                },
-                "category  d-flex align-items-center justify-content-between"
-              )}
-            >
-              <div className="category__img shadow-sm me-3">
-                <img
-                  src="https://lzd-img-global.slatic.net/g/tps/images/ims-web/TB1kMHReBr0gK0jSZFnXXbRRXXa.jpg_80x80q80.jpg_.webp"
-                  alt="category"
-                  width="100%"
-                  height="100%"
-                />
-              </div>
-              <span
-                style={{
-                  fontSize: "12px",
-                  fontWeight: "500",
-                }}
-                className="text-muted"
-              >
-                Endirimli məhsullar
-              </span>
-            </li>
-            <li
-              onClick={() => {
-                setTab(2);
-              }}
-              className={classNames(
-                {
-                  active: tab === 2,
-                },
-                "category  d-flex align-items-center justify-content-between"
-              )}
-            >
-              <div className="category__img shadow-sm me-3 ">
-                <img
-                  src="https://lzd-img-global.slatic.net/g/tps/images/ims-web/TB14mNMpBr0gK0jSZFnXXbRRXXa.jpg_80x80q80.jpg_.webp"
-                  alt="category"
-                  width="100%"
-                  height="100%"
-                />
-              </div>
-              <span
-                style={{
-                  fontSize: "12px",
-                  fontWeight: "500",
-                }}
-                className="text-muted"
-              >
-                Ət və balıq məhsulları
-              </span>
-            </li>
+                <div className="category__img overflow-hidden shadow-sm me-3">
+                  <img
+                    style={{
+                      objectFit: "contain",
+                    }}
+                    src={category.cover_image}
+                    alt="category"
+                    className="img-fluid"
+                  />
+                </div>
+                <span
+                  style={{
+                    fontSize: "12px",
+                    fontWeight: "500",
+                  }}
+                  className="text-muted"
+                >
+                  {category.category_name}
+                </span>
+              </li>
+            ))}
           </ul>
         </div>
         <div
@@ -215,3 +178,63 @@ const Categories = () => {
 };
 
 export default Categories;
+
+//
+// <li
+//     onClick={() => {
+//       setTab(1);
+//     }}
+//     className={classNames(
+//         {
+//           active: tab === 1,
+//         },
+//         "category  d-flex align-items-center justify-content-between"
+//     )}
+// >
+//   <div className="category__img shadow-sm me-3">
+//     <img
+//         src="https://lzd-img-global.slatic.net/g/tps/images/ims-web/TB1kMHReBr0gK0jSZFnXXbRRXXa.jpg_80x80q80.jpg_.webp"
+//         alt="category"
+//         width="100%"
+//         height="100%"
+//     />
+//   </div>
+//   <span
+//       style={{
+//         fontSize: "12px",
+//         fontWeight: "500",
+//       }}
+//       className="text-muted"
+//   >
+//                 Endirimli məhsullar
+//               </span>
+// </li>
+// <li
+//     onClick={() => {
+//       setTab(2);
+//     }}
+//     className={classNames(
+//         {
+//           active: tab === 2,
+//         },
+//         "category  d-flex align-items-center justify-content-between"
+//     )}
+// >
+//   <div className="category__img shadow-sm me-3 ">
+//     <img
+//         src="https://lzd-img-global.slatic.net/g/tps/images/ims-web/TB14mNMpBr0gK0jSZFnXXbRRXXa.jpg_80x80q80.jpg_.webp"
+//         alt="category"
+//         width="100%"
+//         height="100%"
+//     />
+//   </div>
+//   <span
+//       style={{
+//         fontSize: "12px",
+//         fontWeight: "500",
+//       }}
+//       className="text-muted"
+//   >
+//                 Ət və balıq məhsulları
+//               </span>
+// </li>

@@ -1,30 +1,40 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import SignInWrapper from "./SignIn.styles.js";
 import BottomBar from "../../../components/BottomBar/BottomBar.component.jsx";
 import Navbar from "../../../components/Navbar/Navbar.component.jsx";
 import MobileNavigator from "../../../components/MobileNavigator/MobileNavigator.component.jsx";
-import Breadcrumb from "../../../components/Breadcrumb/Breadcrumb.component.jsx";
-import { useIsAuthenticated } from "react-auth-kit";
+import { useIsAuthenticated, useSignIn } from "react-auth-kit";
 import { Link, useNavigate } from "react-router-dom";
 import parsePhoneNumber, {
   isPossiblePhoneNumber,
   isValidPhoneNumber,
 } from "libphonenumber-js";
 import classNames from "classnames";
+import { publicAxios } from "../../../utils/axios.helpers.js";
+import { useMutation } from "@tanstack/react-query";
+import { AxiosError } from "axios";
+import { Oval } from "react-loader-spinner";
 
 const SignIn = () => {
   const isAuthenticated = useIsAuthenticated();
   const navigate = useNavigate();
-  const [phone, setPhone] = useState("");
-  const [phoneError, setPhoneError] = useState(null);
-  const [otp, setOtp] = useState("");
-  const [otpError, setOtpError] = useState(null);
 
   useEffect(() => {
     if (isAuthenticated()) {
       navigate("/profile");
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated()]);
+
+  // region *State
+  const [phone, setPhone] = useState("");
+  const [phoneError, setPhoneError] = useState(null);
+  const [otp, setOtp] = useState("");
+  const [otpError, setOtpError] = useState(null);
+  const [signInError, setSignInError] = useState(null);
+  const [otpLoading, setOtpLoading] = useState(false);
+  // endregion
+
+  // region *Phone Number Formatter
   const phoneFormatter = (value) => {
     const phoneNumber = parsePhoneNumber(value, "AZ", {
       extended: true,
@@ -36,20 +46,120 @@ const SignIn = () => {
 
     return phoneNumber.formatInternational();
   };
-
   const validatePhone = (value) => {
     return (
       isPossiblePhoneNumber(value, "AZ") && isValidPhoneNumber(value, "AZ")
     );
   };
-
   const handlePhoneChange = (e) => {
     const value = e.target.value;
     const formattedValue = phoneFormatter(value);
     setPhone(formattedValue);
     setPhoneError(null);
-    setOtpError(null);
   };
+  // endregion
+
+  const SignIn = async () => {
+    try {
+      const res = await publicAxios.post("/auth/login/", {
+        phone: phone.split(" ").join(""),
+        password: otp,
+      });
+
+      return res.data;
+    } catch (e) {
+      if (e instanceof AxiosError) {
+        throw new Error(e.response.data.message);
+      }
+
+      throw new Error(e);
+    }
+  };
+  const signIn = useSignIn();
+  const { mutate, isLoading, isError, error } = useMutation(SignIn, {
+    onSuccess: (data) => {
+      if (
+        signIn({
+          token: data.access,
+          expiresIn: data.accessTokenExpireIn,
+          tokenType: "Bearer",
+          refreshToken: data.refresh,
+          refreshTokenExpireIn: data.refreshTokenExpireIn,
+          authState: data.authState,
+        })
+      ) {
+        navigate("/profile");
+      }
+    },
+    onError: (error) => {
+      setSignInError(error.message);
+    },
+  });
+  const sendOtp = async () => {
+    try {
+      setOtpLoading(true);
+      const res = await publicAxios.post("/auth/get-otp/", {
+        phone: phone.split(" ").join(""),
+      });
+
+      return res;
+    } catch (e) {
+      if (e instanceof AxiosError) {
+        throw new Error(e.response.data.message);
+      }
+
+      throw new Error(e);
+    }
+  };
+
+  // region *Timer
+  const timer = useRef(60);
+  const [timerState, setTimerState] = useState(60);
+  const [timerActive, setTimerActive] = useState(false);
+  const [timerFinished, setTimerFinished] = useState(false);
+  let timerInterval = null;
+  const handleTimer = () => {
+    if (phone.length === 0) {
+      setPhoneError("Telefon nömrəsi boş ola bilməz");
+      return;
+    }
+
+    if (!validatePhone(phone)) {
+      setPhoneError("Telefon nömrəsi düzgün deyil");
+      return;
+    }
+
+    setTimerActive(true);
+    timerInterval = setInterval(() => {
+      timer.current = timer.current - 1;
+      setTimerState(timer.current);
+      // setTimer(timer - 1);
+    }, 1000);
+  };
+
+  useEffect(() => {
+    if (timerState === 0) {
+      setTimerFinished(true);
+      setTimerActive(false);
+      clearInterval(timerInterval);
+      timerInterval = null;
+      timer.current = 60;
+      setTimerState(timer.current);
+    }
+  }, [timerState]);
+  const handleResend = () => {
+    clearInterval(timerInterval);
+    sendOtp()
+      .then((res) => {
+        alert(`SMS Təsdiqləmə Kodunuz ${res.data.otp}`);
+        setOtpLoading(false);
+        handleTimer();
+      })
+      .catch((e) => {
+        setOtpError(e.message);
+      });
+  };
+  // endregion
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -68,10 +178,9 @@ const SignIn = () => {
     }
 
     if (phoneIsValid && phone && otp) {
-      alert("Giriş uğurla başa çatdı");
+      mutate();
     }
   };
-
   return (
     <SignInWrapper>
       <div className="sticky-top">
@@ -135,14 +244,54 @@ const SignIn = () => {
                         },
                         "otp-action-button"
                       )}
+                      onClick={handleResend}
                     >
-                      Göndər
+                      {otpLoading ? (
+                        <Oval
+                          height={18}
+                          width={18}
+                          color="#ee4054"
+                          visible={true}
+                          ariaLabel="oval-loading"
+                          secondaryColor="#ee4054"
+                          strokeWidth={4}
+                          strokeWidthSecondary={4}
+                        />
+                      ) : (
+                        <span>
+                          {timerActive
+                            ? `${timerState} saniyə`
+                            : timerFinished
+                            ? "Yenidən göndər"
+                            : "Göndər"}
+                        </span>
+                      )}
                     </span>
                   </div>
                 </div>
+                {signInError && (
+                  <div className="alert alert-danger">{signInError}</div>
+                )}
                 <div className="form-group mt-4">
-                  <button type="submit" className="btn btn-primary">
-                    Giriş
+                  <button
+                    disabled={isLoading}
+                    type="submit"
+                    className="btn btn-primary d-flex justify-content-center align-items-center"
+                  >
+                    {isLoading ? (
+                      <Oval
+                        height={25}
+                        width={25}
+                        color="#ee4054"
+                        visible={true}
+                        ariaLabel="oval-loading"
+                        secondaryColor="#ee4054"
+                        strokeWidth={4}
+                        strokeWidthSecondary={4}
+                      />
+                    ) : (
+                      "Daxil ol"
+                    )}
                   </button>
                 </div>
                 <span
