@@ -10,27 +10,27 @@ const CartWrapper = styled.div`
   .trash {
     transition: all 0.3s;
     &:hover {
-      color: var(--red) !important;
+      color: #b01e68 !important;
     }
   }
 
   .like {
-    color: var(--red);
+    color: #b01e68;
   }
 
   .add-to-cart-btn {
     width: 100%;
     background-color: transparent;
-    border: 1.5px solid var(--red);
+    border: 1.5px solid #b01e68;
     padding: 8px 3px;
     border-radius: 5px;
     transition: all 0.3s;
-    color: var(--red);
+    color: #b01e68;
     font-weight: bold;
     font-size: 12px;
 
     &:hover {
-      background-color: var(--red);
+      background-color: #b01e68;
       color: white;
       svg {
         fill: white;

@@ -1,7 +1,7 @@
 import React from "react";
 import SearchBarWrapper from "./SearchBar.styles.js";
 import { BiSearch } from "react-icons/bi";
-import logo from "../../../assets/logo/logobig.png";
+import logo from "../../../assets/logo/yeloomart-transparent.png";
 import { useNavigate } from "react-router-dom";
 
 const SearchBar = () => {

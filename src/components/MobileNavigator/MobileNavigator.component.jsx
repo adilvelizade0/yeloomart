@@ -24,9 +24,9 @@ const MobileNavigator = ({ name }) => {
           cursor: "pointer",
         }}
         size={30}
-        color="#fff"
+        color="#000"
       />
-      <h4 className="text-light text-center">{name}</h4>
+      <h4 className="text-dark text-center">{name}</h4>
     </nav>
   );
 };

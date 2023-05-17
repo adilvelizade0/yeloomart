@@ -3,6 +3,7 @@ import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import { BsArrowLeftShort, BsArrowRightShort } from "react-icons/bs";
 import PromotionSliderWrapper from "./PromotionSlider.styles.js";
+import promotionImg from "../../assets/promotion.png";
 const PromotionSlider = () => {
   const SlickArrowLeft = ({ currentSlide, slideCount, ...props }) => (
     <button
@@ -14,7 +15,7 @@ const PromotionSlider = () => {
       aria-disabled={currentSlide === 0}
       type="button"
     >
-      <BsArrowLeftShort className="arrow" color="#d23f57" size={30} />,
+      <BsArrowLeftShort className="arrow" color="#b01e68" size={30} />,
     </button>
   );
   const SlickArrowRight = ({ currentSlide, slideCount, ...props }) => (
@@ -28,7 +29,7 @@ const PromotionSlider = () => {
       aria-disabled={currentSlide === slideCount - 1}
       type="button"
     >
-      <BsArrowRightShort className="arrow" color="#d23f57" size={30} />
+      <BsArrowRightShort className="arrow" color="#b01e68" size={30} />
     </button>
   );
 
@@ -59,6 +60,9 @@ const PromotionSlider = () => {
     <PromotionSliderWrapper>
       <div className="px-2 px-md-0">
         <Slider {...settings}>
+          <div className="promotion rounded shadow-sm overflow-hidden my-3">
+            <img src={promotionImg} alt="promotion" className="img-fluid" />
+          </div>
           <div className="promotion rounded shadow-sm overflow-hidden my-3">
             <img
               src="https://lzd-img-global.slatic.net/g/gcp/lazada/932f29cb-90da-4b16-82e4-191e2a13af92_SG-988-256.jpg_2200x2200q80.jpg_.webp"

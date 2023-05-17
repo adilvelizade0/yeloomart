@@ -7,8 +7,8 @@ const NavbarWrapper = styled.nav`
       position: absolute;
       top: -3px;
       left: 23px;
-      background-color: #871c23;
-      color: #ffebec;
+      background-color: #B01E68;
+      color: #fff;
       width: 16px;
       height: 16px;
       border-radius: 5px;

@@ -72,10 +72,10 @@ const ShoppingCard = ({
         <div className="card-header">
           <div className="wishlist-btn d-flex justify-content-end align-items-center">
             {isFavorite ? (
-              <AiFillHeart color="#d23f57" size={23} onClick={handleFavorite} />
+              <AiFillHeart color="#B01E68" size={23} onClick={handleFavorite} />
             ) : (
               <AiOutlineHeart
-                color="#d23f57"
+                color="#B01E68"
                 size={23}
                 onClick={handleFavorite}
               />
@@ -146,7 +146,7 @@ const ShoppingCard = ({
           >
             <span
               style={{
-                color: "var(--red)",
+                color: "#B01E68",
               }}
               className="new-price "
             >

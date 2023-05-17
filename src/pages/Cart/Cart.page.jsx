@@ -157,7 +157,7 @@ const Cart = ({
                           <div className="d-flex justify-content-center flex-column ">
                             <span
                               style={{
-                                color: "var(--red)",
+                                color: "#b01e68",
                                 fontSize: "24px",
                                 fontWeight: "600",
                               }}
@@ -262,7 +262,7 @@ const Cart = ({
                       </span>
                       <span
                         style={{
-                          color: "var(--red)",
+                          color: "#b01e68",
                           fontSize: "16px",
                           fontWeight: "600",
                         }}

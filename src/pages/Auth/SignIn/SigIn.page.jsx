@@ -199,10 +199,24 @@ const SignIn = () => {
 
         <div className="tab-bar d-flex d-lg-none shadow-sm">
           <div className="tab active">
-            <Link to="/sign-in">Giriş</Link>
+            <Link
+              style={{
+                color: "#b01e68",
+              }}
+              to="/sign-in"
+            >
+              Giriş
+            </Link>
           </div>
           <div className="tab">
-            <Link to="/sign-up">Qeydiyyat</Link>
+            <Link
+              style={{
+                color: "#b01e68",
+              }}
+              to="/sign-up"
+            >
+              Qeydiyyat
+            </Link>
           </div>
         </div>
       </div>
@@ -250,10 +264,10 @@ const SignIn = () => {
                         <Oval
                           height={18}
                           width={18}
-                          color="#ee4054"
+                          color="#b01e68"
                           visible={true}
                           ariaLabel="oval-loading"
-                          secondaryColor="#ee4054"
+                          secondaryColor="#b01e68"
                           strokeWidth={4}
                           strokeWidthSecondary={4}
                         />
@@ -282,10 +296,10 @@ const SignIn = () => {
                       <Oval
                         height={25}
                         width={25}
-                        color="#ee4054"
+                        color="#b01e68"
                         visible={true}
                         ariaLabel="oval-loading"
-                        secondaryColor="#ee4054"
+                        secondaryColor="#b01e68"
                         strokeWidth={4}
                         strokeWidthSecondary={4}
                       />
@@ -302,7 +316,16 @@ const SignIn = () => {
                   }}
                   className="mt-3 d-block"
                 >
-                  Yeni üzv? Burada <Link to="/sign-up">qeydiyyatdan</Link> keçin
+                  Yeni üzv? Burada{" "}
+                  <Link
+                    style={{
+                      color: "#b01e68",
+                    }}
+                    to="/sign-up"
+                  >
+                    qeydiyyatdan
+                  </Link>{" "}
+                  keçin
                 </span>
               </form>
             </div>

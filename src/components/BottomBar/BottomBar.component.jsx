@@ -5,7 +5,7 @@ import { AiOutlineShoppingCart, AiOutlineHeart } from "react-icons/ai";
 import { CgProfile } from "react-icons/cg";
 import { TbCategory } from "react-icons/tb";
 import BottomBarWrapper from "./BottomBar.styles.js";
-import logo from "../../assets/logo/logosmall.png";
+import logo from "../../assets/logo/yeloomart-base-yellow-logo.png";
 import { useNavigate } from "react-router-dom";
 import { useIsAuthenticated } from "react-auth-kit";
 
@@ -17,7 +17,7 @@ const BottomBar = () => {
 
   const bottomNavItems = [
     {
-      title: "Meduza",
+      title: "Yeloomart",
       icon: (
         <img
           onClick={() => {
@@ -50,7 +50,7 @@ const BottomBar = () => {
           size={25}
         />
       ),
-      activeIcon: <TbCategory color="#ee4054" size={25} />,
+      activeIcon: <TbCategory color="#b01e68" size={25} />,
     },
     {
       title: "Səbət",
@@ -63,12 +63,12 @@ const BottomBar = () => {
           size={25}
         />
       ),
-      activeIcon: <AiOutlineShoppingCart color="#ee4054" size={25} />,
+      activeIcon: <AiOutlineShoppingCart color="#b01e68" size={25} />,
     },
     {
       title: "Sevimlilər",
       icon: <AiOutlineHeart color="rgb(102, 102, 102)" size={25} />,
-      activeIcon: <AiOutlineHeart color="#ee4054" size={25} />,
+      activeIcon: <AiOutlineHeart color="#b01e68" size={25} />,
     },
     {
       title: "Profil",
@@ -81,18 +81,18 @@ const BottomBar = () => {
           size={25}
         />
       ),
-      activeIcon: <CgProfile color="#ee4054" size={25} />,
+      activeIcon: <CgProfile color="#b01e68" size={25} />,
     },
   ];
 
   return (
     <BottomBarWrapper className="d-lg-none">
       <BottomNavigation
-        style={{ backgroundColor: "#ee4054" }}
+        style={{ backgroundColor: "#b01e68" }}
         items={bottomNavItems}
         defaultSelected={value}
         value={value}
-        activeTextColor="#ee4054"
+        activeTextColor="#b01e68"
         activeBgColor="#fff"
         onItemClick={(item) => {
           setValue(item.id);

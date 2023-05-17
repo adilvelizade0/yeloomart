@@ -21,7 +21,7 @@ const SignInWrapper = styled.div`
     .active {
       border-bottom: 3px solid var(--red);
       a {
-        color: var(--red);
+        color: var(--red) !important;
       }
     }
   }
@@ -50,7 +50,7 @@ const SignInWrapper = styled.div`
       box-shadow: none;
 
       &:focus {
-        border-bottom: 1px solid var(--red);
+        border-bottom: 1px solid #b01e68;
         background-color: transparent;
         outline: none;
         box-shadow: none;
@@ -58,7 +58,7 @@ const SignInWrapper = styled.div`
     }
 
     .error {
-      color: var(--red);
+      color: #b01e68;
       font-size: 12px;
     }
 
@@ -80,7 +80,7 @@ const SignInWrapper = styled.div`
       }
 
       .active-otp {
-        color: var(--red);
+        color: #b01e68;
         cursor: pointer;
       }
     }
@@ -88,16 +88,16 @@ const SignInWrapper = styled.div`
     button[type="submit"] {
       width: 100%;
       background-color: transparent;
-      border: 1.5px solid var(--red);
+      border: 1.5px solid #b01e68;
       padding: 8px 3px;
       border-radius: 5px;
       transition: all 0.3s;
-      color: var(--red);
+      color: #b01e68;
       font-weight: bold;
       font-size: 14px;
 
       &:hover {
-        background-color: var(--red);
+        background-color: #b01e68;
         color: white;
 
         svg {

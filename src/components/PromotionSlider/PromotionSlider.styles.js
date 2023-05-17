@@ -36,7 +36,7 @@ const PromotionSliderWrapper = styled.div`
 
     .slick-dots li.slick-active button:before {
       font-size: 12px !important;
-      color: var(--red);
+      color: #b01e68;
     }
 
     .promotion {

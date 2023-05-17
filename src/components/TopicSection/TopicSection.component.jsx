@@ -17,6 +17,7 @@ const TopicSection = ({ title, path }) => {
       <Link
         style={{
           fontSize: "14px",
+          color: "#B01E68",
         }}
         className="d-flex align-items-center"
         to={path}

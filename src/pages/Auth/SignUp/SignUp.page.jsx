@@ -143,10 +143,24 @@ const SignUp = () => {
 
         <div className="tab-bar d-flex d-lg-none shadow-sm">
           <div className="tab">
-            <Link to="/sign-in">Giriş</Link>
+            <Link
+              style={{
+                color: "#b01e68",
+              }}
+              to="/sign-in"
+            >
+              Giriş
+            </Link>
           </div>
           <div className="tab active">
-            <Link to="/sign-up">Qeydiyyat</Link>
+            <Link
+              style={{
+                color: "#b01e68",
+              }}
+              to="/sign-up"
+            >
+              Qeydiyyat
+            </Link>
           </div>
         </div>
       </div>
@@ -226,10 +240,10 @@ const SignUp = () => {
                       <Oval
                         height={25}
                         width={25}
-                        color="#ee4054"
+                        color="#FDDA0D"
                         visible={true}
                         ariaLabel="oval-loading"
-                        secondaryColor="#ee4054"
+                        secondaryColor="#FDDA0D"
                         strokeWidth={4}
                         strokeWidthSecondary={4}
                       />
@@ -246,7 +260,16 @@ const SignUp = () => {
                   }}
                   className="mt-3 d-block"
                 >
-                  Hesabınız varsa , <Link to="/sign-in">Giriş</Link> edin
+                  Hesabınız varsa ,{" "}
+                  <Link
+                    style={{
+                      color: "#b01e68",
+                    }}
+                    to="/sign-in"
+                  >
+                    Giriş
+                  </Link>{" "}
+                  edin
                 </span>
               </form>
             </div>

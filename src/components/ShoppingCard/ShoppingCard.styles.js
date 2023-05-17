@@ -28,7 +28,7 @@ const ShoppingCardWrapper = styled.div`
       }
     }
     .discount-badge {
-      background-color: var(--red);
+      background-color: #b01e68;
       display: inline-block;
       padding: 5px;
       color: white;
@@ -51,7 +51,7 @@ const ShoppingCardWrapper = styled.div`
       transition: all 0.3s;
 
       &:hover {
-        color: var(--red);
+        color: #b01e68;
       }
     }
 
@@ -77,17 +77,17 @@ const ShoppingCardWrapper = styled.div`
       .add-to-cart-btn {
         width: 100%;
         background-color: transparent;
-        border: 1.5px solid var(--red);
+        border: 1.5px solid #b01e68;
         padding: 5px 3px;
         border-radius: 5px;
         transition: all 0.3s;
-        color: var(--red);
+        color: #b01e68;
         font-weight: bold;
         font-size: 12px;
 
         &:hover {
-          background-color: var(--red);
-          color: white;
+          background-color: #b01e68;
+          color: #fff;
           svg {
             fill: white;
           }

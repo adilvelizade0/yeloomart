@@ -12,7 +12,8 @@ const SearchBarWrapper = styled.div`
     display: flex;
     align-items: center;
     padding: 0 15px;
-    background-color: #f5f5f5;
+    //background-color: #f5f5f5;
+    background-color: #28282B;
     border-radius: 30px 0 0 30px;
     cursor: pointer;
   }

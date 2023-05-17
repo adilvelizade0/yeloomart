@@ -8,16 +8,16 @@ const ProductDetailWrapper = styled.div`
     .add-to-cart-btn {
       width: 100%;
       background-color: transparent;
-      border: 1.5px solid var(--red);
+      border: 1.5px solid #b01e68;
       padding: 8px 3px;
       border-radius: 5px;
       transition: all 0.3s;
-      color: var(--red);
+      color: #b01e68;
       font-weight: bold;
       font-size: 12px;
 
       &:hover {
-        background-color: var(--red);
+        background-color: #b01e68;
         color: white;
         svg {
           fill: white;
@@ -27,16 +27,16 @@ const ProductDetailWrapper = styled.div`
 
     .add-to-cart {
       background-color: transparent;
-      border: 1.5px solid var(--red);
+      border: 1.5px solid #b01e68;
       padding: 10px 20px;
       border-radius: 5px;
       transition: all 0.3s;
-      color: var(--red);
+      color: #b01e68;
       font-weight: bold;
       font-size: 15px;
 
       &:hover {
-        background-color: var(--red);
+        background-color: #b01e68;
         color: white;
         svg {
           fill: white;

@@ -83,14 +83,14 @@ const ProductDetail = ({
                     <IoIosShareAlt color="#9e9e9e" className="me-3" size={30} />
                     {isFavorite ? (
                       <AiFillHeart
-                        color="#d23f57"
+                        color="#b01e68"
                         size={30}
                         onClick={handleFavorite}
                         style={{ cursor: "pointer" }}
                       />
                     ) : (
                       <AiOutlineHeart
-                        color="#d23f57"
+                        color="#b01e68"
                         size={30}
                         onClick={handleFavorite}
                         style={{ cursor: "pointer" }}
@@ -108,15 +108,29 @@ const ProductDetail = ({
                   </div>
                   <div className="product-detail__category pt-3 pb-1">
                     <span className="text-muted">Kateqoriya:</span>{" "}
-                    <a href="#">Meyvələr</a>{" "}
+                    <a
+                      style={{
+                        color: "#b01e68",
+                      }}
+                      href="#"
+                    >
+                      Meyvələr
+                    </a>{" "}
                     <span className="text-muted">| Brend:</span>{" "}
-                    <a href="#">Banana</a>
+                    <a
+                      style={{
+                        color: "#b01e68",
+                      }}
+                      href="#"
+                    >
+                      Banana
+                    </a>
                   </div>
                   <hr />
                   <div className="product-detail__price pb-1">
                     <span
                       style={{
-                        color: "var(--red)",
+                        color: "#b01e68",
                         fontSize: "24px",
                         fontWeight: "600",
                       }}
@@ -230,7 +244,7 @@ const ProductDetail = ({
                   <span className="text-muted">
                     <a
                       style={{
-                        color: "var(--red)",
+                        color: "#b01e68",
                       }}
                       href="#"
                     >
@@ -284,7 +298,7 @@ const ProductDetail = ({
             <div className="benefits mt-3">
               <ul className="list-unstyled mb-0 d-flex flex-column ps-3">
                 <li className="d-flex align-items-center mb-3">
-                  <FaTruck color="#ee4054" size={40} className="me-3" />
+                  <FaTruck color="#b01e68" size={40} className="me-3" />
                   <div className="d-flex flex-column justify-content-center">
                     <span
                       style={{
@@ -299,7 +313,7 @@ const ProductDetail = ({
                   </div>
                 </li>
                 <li className="d-flex align-items-center mb-3">
-                  <BiSupport color="#ee4054" size={40} className="me-3" />
+                  <BiSupport color="#b01e68" size={40} className="me-3" />
                   <div className="d-flex flex-column justify-content-center">
                     <span
                       style={{
@@ -312,7 +326,7 @@ const ProductDetail = ({
                   </div>
                 </li>
                 <li className="d-flex align-items-center mb-3">
-                  <TbDiscount2 color="#ee4054" size={40} className="me-3" />
+                  <TbDiscount2 color="#b01e68" size={40} className="me-3" />
                   <div className="d-flex flex-column justify-content-center">
                     <span
                       style={{

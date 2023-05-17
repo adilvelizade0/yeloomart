@@ -22,8 +22,7 @@ const MobileProfile = () => {
       <MobileProfileWrapper>
         <div
           style={{
-            background:
-              "linear-gradient(90deg, hsla(340, 80%, 69%, 1) 0%, hsla(15, 93%, 71%, 1) 100%)",
+            background: "linear-gradient(315deg, #f39f86 0%, #f9d976 74%)",
           }}
           className="p-2 w-100 text-center"
         >

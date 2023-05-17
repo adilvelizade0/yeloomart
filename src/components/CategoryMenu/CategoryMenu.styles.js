@@ -11,7 +11,7 @@ const CategoryMenuWrapper = styled.div`
       margin: 10px 0;
 
       &:hover {
-        color: var(--red);
+        color: #b01e68;
       }
     }
   }
@@ -35,7 +35,7 @@ const SubCategoryMenuWrapper = styled.div`
     }
 
     &:hover {
-      color: var(--red);
+      color: #b01e68;
     }
   }
 `;

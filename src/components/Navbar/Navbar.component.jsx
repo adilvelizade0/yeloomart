@@ -41,15 +41,15 @@ const Navbar = () => {
                     navigate("/cart");
                   }}
                   size={28}
-                  color="#fff"
+                  color="#28282B"
                 />
               </div>
               <div className="add-address d-none d-lg-flex align-items-center">
-                <HiMapPin size={30} color="#fff" />
+                <HiMapPin size={30} color="#28282B" />
                 <div className="ms-2">
                   <h6
                     style={{
-                      color: "#ffc2c5",
+                      color: "#28282B",
                       fontSize: "10px",
                     }}
                     className="fw-bold"
@@ -57,10 +57,11 @@ const Navbar = () => {
                     ÇATDIRILMA ÜNVANI
                   </h6>
                   <a
-                    className="text-light text-decoration-underline fw-bold"
+                    className=" text-decoration-underline fw-bold"
                     href="#"
                     style={{
                       fontSize: "11px",
+                      color: "#B01E68",
                     }}
                   >
                     ƏLAVƏ ET
@@ -68,11 +69,11 @@ const Navbar = () => {
                 </div>
               </div>
               <div className="add-profile d-none d-lg-flex align-items-center">
-                <FaUser size={25} color="#fff" />
+                <FaUser size={25} color="#28282B" />
                 <div className="ms-2">
                   <h6
                     style={{
-                      color: "#ffc2c5",
+                      color: "#28282B",
                       fontSize: "10px",
                     }}
                     className="fw-bold"
@@ -83,26 +84,34 @@ const Navbar = () => {
                     {isAuthenticated() ? (
                       <Link
                         to={"/profile"}
-                        className="text-light text-decoration-underline fw-bold"
+                        style={{
+                            fontSize: "11px",
+                            color: "#B01E68",
+                        }}
+                        className=" text-decoration-underline fw-bold"
                       >
                         {authUser()?.username}
                       </Link>
                     ) : (
                       <>
                         <Link
-                          className="text-light text-decoration-underline fw-bold"
+                          className="text-decoration-underline fw-bold"
                           style={{
                             fontSize: "11px",
+                            color: "#B01E68",
                           }}
                           to="/sign-up"
                         >
                           QEYDİYYAT
                         </Link>
-                        <span className="mx-2 text-light">|</span>
+                        <span style={{
+                          color: "#B01E68",
+                        }} className="mx-2">|</span>
                         <Link
-                          className="text-light text-decoration-underline fw-bold"
+                          className="text-decoration-underline fw-bold"
                           style={{
                             fontSize: "11px",
+                            color: "#B01E68",
                           }}
                           to="/sign-in"
                         >
@@ -123,7 +132,7 @@ const Navbar = () => {
                   }}
                   style={{ cursor: "pointer" }}
                   size={30}
-                  color="#fff"
+                  color="#28282B"
                 />
               </div>
             </div>
